@@ -60,4 +60,4 @@ This is a demo in Python for the paper ['Pre-training Summarization Models of St
 `        Sampling        GMQ:3.02, 95th:109.98`\
 `        xAVI            GMQ:2.94, 95th:21.00`\
 `        LM-             GMQ:2.21, 95th:8.08`\
-`        MSCN            GMQ:3.62, 95th:52.0`\
+`        MSCN            GMQ:3.62, 95th:52.0`
