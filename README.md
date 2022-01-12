@@ -1,18 +1,19 @@
-This is a demo in Python for the paper “Pre-training Summarization Models of Structured Datasets for Cardinality Estimation” submitted to PVLDB15.  It showcases (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering. For more details, please refer to the paper submission. We are showing a version in Python for ease of reading, however, this version is not as performant as our C++ version in terms of build time and query time. We plan to release an updated version including code to train the summarization models shortly.
+# Iris Demo
+This is a demo in Python for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris/pdf) accepted to PVLDB15.  It showcases (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering. For more details, please refer to the paper submission. We are showing a version in Python for ease of reading, however, this version is not as performant as our C++ version in terms of build time and query time. We will update the repo to include code to train the summarization models.
 
-Tested environment: 
-Ubuntu 18.04
-GCC 7.5.0
-Python 3.7.6
-Swig 3.0.12
-Tensorflow 1.13.1
-Keras 2.3.1
+# Tested environment: 
+- Ubuntu 18.04
+- GCC 7.5.0
+- Python 3.7.6
+- Swig 3.0.12
+- Tensorflow 1.13.1
+- Keras 2.3.1
 
-To run the demo: 
-make
-python run_demo.py
+# To run the demo: 
+'make
+'python run_demo.py
 
-Console outputs in the tested environment:
+## Console outputs in the tested environment:
 Using TensorFlow backend.
 Read base per-column histograms..
 Loading data/demo_query.txt with 1 sets.
