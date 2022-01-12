@@ -1,5 +1,5 @@
 # Iris Demo
-This is a demo in Python for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris/pdf) accepted to PVLDB15.  It showcases (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering. For more details, please refer to the paper submission. We are showing a version in Python for ease of reading, however, this version is not as performant as our C++ version in terms of build time and query time. We will update the repo to include code to train the summarization models.
+This is a demo in Python for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris.pdf) accepted to PVLDB15.  It showcases (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering. For more details, please refer to the paper submission. We are showing a version in Python for ease of reading, however, this version is not as performant as our C++ version in terms of build time and query time. We will update the repo to include code to train the summarization models.
 
 # Tested environment: 
 - Ubuntu 18.04
@@ -11,7 +11,7 @@ This is a demo in Python for the paper ['Pre-training Summarization Models of St
 
 # To run the demo: 
 `make`\
-`python run_demo.py`\
+`python run_demo.py`
 
 ## Console outputs in the tested environment:
 `Using TensorFlow backend.`\
