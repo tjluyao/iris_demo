@@ -106,7 +106,7 @@ To run the pre-training, besides all the testing datasets, download the pre-proc
 cd src/
 python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 ```
-### Other useful command line parameters
+### Useful command line arguments
 `parameters.py` lists all the command line arguments used. We show a few useful ones here:
 - `input_fnm`: File specifying the dataset and test test queries. 
 - `model_fnm`: The model name used for summarization and CE, and the output model name in pre-training.
