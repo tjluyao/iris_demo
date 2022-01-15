@@ -95,20 +95,21 @@ GMQ high:1.2341526845114035
         MSCN            GMQ:3.62, 95th:52.0
 ```
 ### Run summary and CE on full test datasets in the paper: 
-The `input_fnm` argument specifies the dataset and test queries. 
+Download the test dataset from the link below. Unzip to the root folder. Run the following:
 ```
 cd src/
 python run_summary_CE.py --input_fnm test/full-lineitem.txt 
 ```
 ### Run the pre-training
-To run the pre-training, besides all the testing datasets, download the pre-processed training datasets from the link below. `nt` argument (\ell in the paper) specifies the input resolution. `nr` argument (\eta) speficies the embedding size. `ngpus` decides how many GPUs to train, and `model_fnm` specifies the output model name.
+To run the pre-training, besides all the testing datasets, download the pre-processed training datasets from the link below and unzip to the root folder. Run the following:
 ```
 cd src/
 python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 ```
 ### Other useful command line parameters
 `parameters.py` lists all the command line arguments used. We show a few useful ones here:
-- `input_fnm`: Test query set. 
+- `input_fnm`: File specifying the dataset and test test queries. 
+- `model_fnm`: The model name used for summarization and CE, and the output model name in pre-training.
 - `nusecpp`: If using cpp modules to speed up some parts of the Python code.
 - `nr`: The output embedding size for each dataset (\eta in the paper). 
 - `storage`: The storage budget for bag of summaries. It is a multiplier of the storage budget used in SQL Server (4KB/column). 
