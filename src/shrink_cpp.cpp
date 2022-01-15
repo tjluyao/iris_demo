@@ -39,6 +39,7 @@ std::vector<std::vector<int> > partition(std::vector<std::vector<float> > keys, 
 				if(valdif[ids[i]]==mindif)
 					minvds.push_back(i);
 			int minvd = ids[minvds[minvds.size() / 2]];
+			//cout<<"-----valtup:"<<valtup[0]<<","<<valtup[1]<<",valdif:"<<valdif[0]<<","<<valdif[1]<<",minvd:"<<minvd<<endl;
 			
 			cnts[d][minvd + 1] = cnts[d][minvd] + cnts[d][minvd + 1];
 			keys[d].erase(keys[d].begin() + minvd);

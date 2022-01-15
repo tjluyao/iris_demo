@@ -1,6 +1,16 @@
+import numpy as np
+import os
+import sys
+import gzip
+from tqdm import tqdm,trange
+from partition import *
+from iris_io import *
 from utils import *
 
-def gen(ncd, nd, X_in, nss, normlen, nt, nm, neb, maxd):
+from datetime import date, timedelta
+
+
+def gen_test(ncd, nd, X_in, nss, normlen, nt, nm, neb, maxd):
     X = np.zeros((1, nt, nd + 1)).astype(int)
     Xs = np.zeros((1, ncd + 2, maxd + 1))
     idq = np.arange(nt, dtype='int')

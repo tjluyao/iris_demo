@@ -51,7 +51,7 @@ def rebkt_L2(cap, total, nb, neb, dvcols, dvs):
         nss[id] += 1
     return np.power(nb, nss).astype(int)
 
-def rebucket(ndims, ids, nt, nb, neb, ntype, nmode, dvcols=[]):
+def rebucket(ndims, ids, nt, nb, neb, ntype, dvcols=[]):
     total = (int)(np.round(np.log(nt)/np.log(nb)))
     if(len(ids)>total):
         return None
@@ -62,11 +62,9 @@ def rebucket(ndims, ids, nt, nb, neb, ntype, nmode, dvcols=[]):
         cap[i] = max(1,np.ceil(np.log(dvs[i])/np.log(nb)))
     if(ntype=='Training'):
         return rebkt_L2(cap, total, nb, neb, dvcols, dvs)
-    elif(ntype=='Range' and nmode=='freq'):
+    elif(ntype=='Range'):
         return rebkt_L2(cap, total, nb, neb, [], dvs)
-    elif(ntype=='Range' and nmode=='dv'):
-        return rebkt_L2(cap, total, nb, neb, dvcols, dvs)
-    elif(ntype=='Point' and nmode=='freq'):
+    elif(ntype=='Point'):
         return rebkt_L2(cap, total, nb, neb, [], dvs)
     return None
 
@@ -79,7 +77,7 @@ def recover_cnts(keys, cnts, ids):
         acc += [cur]
     return [keys[id] for id in ids], acc
 
-def bkt_shrink(ccache, ckey, keys, cnts, types, nss, nmode, usecpp=0, dvcol=[]):
+def bkt_shrink(ccache, ckey, keys, cnts, types, nss, usecpp=0, dvcol=[]):
     keyss = [copy.copy(key) for key in keys]
     cntss = [copy.copy(cnt) for cnt in cnts]
     if(ckey in ccache):
@@ -88,7 +86,6 @@ def bkt_shrink(ccache, ckey, keys, cnts, types, nss, nmode, usecpp=0, dvcol=[]):
             keyss[d], cntss[d] = recover_cnts(keyss[d], cntss[d], idss[d])
         return keyss, cntss
     else:
-        #if(nmode=='freq'):
         if usecpp:
             keysfloat = []
             for d in range(len(keyss)):

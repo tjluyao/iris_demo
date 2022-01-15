@@ -3,10 +3,9 @@ import os
 
 from utils import *
 
-def readd(fname, istest, hid, hsize, sample_rate=1, nqs=50):
-    dic = {'Table': [], 'Rows': [], 'Fnms': [], 'Cnts': [], 'Keys': [], 'DimC': [], 'DimR': [], 'Pred_low': [],
-           'Pred_high': [], 'DVcol': [],
-           'GT_freq': [], 'GT_dv': [], 'Types': []}
+def readd(fname, istest=2, hid=1, hsize=1, sample_rate=1, nqs=50):
+    dic = {'Table': [], 'Rows': [], 'Fnms': [], 'Cnts': [], 'Keys': [], 'DimC': [], 'DimR': [], 'Pred_low': [], 'Pred_high': [], 'DVcol': [], 
+           'GT_freq': [], 'GT_dv': [], 'Types': [], 'Samples': [], 'lb': [], 'ub': []}
     path = os.path.dirname(fname)
     lid = 0
     with open(fname, 'r') as f:
@@ -16,8 +15,8 @@ def readd(fname, istest, hid, hsize, sample_rate=1, nqs=50):
             if (l.startswith("#")):
                 continue
             lid += 1
-            if ((lid - 1) % min(nln, hsize) != hid % min(nln, hsize)):
-                continue
+            #if ((lid - 1) % min(nln, hsize) != hid % min(nln, hsize)):
+            #    continue
 
             d = l.split(';')
             dR = list(map(int, filter(None, d[1].split(","))))
@@ -26,7 +25,7 @@ def readd(fname, istest, hid, hsize, sample_rate=1, nqs=50):
             dic['DimR'] += [dR]
             dic['DimC'] += [dC]
 
-            if (istest > 0 and len(d) > 4):
+            if (len(d) >= 4):
                 dvcols = []
                 predl = []
                 predh = []
@@ -40,9 +39,12 @@ def readd(fname, istest, hid, hsize, sample_rate=1, nqs=50):
                 dic['DVcol'] += [dvcols]
                 dic['Pred_low'] += [predl]
                 dic['Pred_high'] += [predh]
-            if (istest > 1 and len(d) > 4):
+            if (len(d)>4+2*nqs):
                 dic['GT_freq'] += [list(map(int, filter(None, d[3 + 2 * nqs].split(","))))]
                 dic['GT_dv'] += [list(map(int, filter(None, d[3 + 2 * nqs + 1].split(","))))]
+            if(len(d)>6+2*nqs):
+                dic['lb'] += [list(map(float, filter(None, d[3 + 2 * nqs + 2].split(","))))]
+                dic['ub'] += [list(map(float, filter(None, d[3 + 2 * nqs + 3].split(","))))]
 
             with open(path + '/' + d[0], 'r') as fmeta:
                 mline = fmeta.readline().split(',')
@@ -72,6 +74,7 @@ def readd(fname, istest, hid, hsize, sample_rate=1, nqs=50):
                 dic['Rows'] += [len(fns) * 10000 / sample_rate]
                 dic['Cnts'] += [cnts]
                 dic['Keys'] += [keys]
+                dic['Samples'] += [path + '/' + os.path.dirname(d[0]) + '/sample']
     print('Loading ' + fname + ' with ' + str(len(dic['Fnms'])) + ' sets.')
     return dic
 
@@ -79,17 +82,16 @@ def read_raw(icache, fnames, ds):
     rows = []
     for fname in fnames:
         if fname not in icache:
-            with open(fname, 'r') as f:
+            with open(fname, 'r', errors='ignore') as f:
                 icache[fname] = [r for r in np.loadtxt(f, delimiter='|', dtype=str)]
         rows += [r[ds] for r in icache[fname]]
     return np.array(rows)
 
-def bkt_raw(input, keys, trim, mode, nss):
+def bkt_raw(input, keys, nss):
     id = max(0, min(len(keys) - 1, np.searchsorted(keys, input, side='right') - 1))
     return int(np.minimum(nss - 1, (id * nss) / len(keys)))
 
-def readr(icache, bcache, fnames, types, nsssort, ds):
-    slen = 10000 #each .data file has 10K rows
+def readr(icache, bcache, fnames, types, nsssort, ds, cnts=[]):
     VV = [[] for _ in range(len(ds))]
     for d in range(len(ds)):
         for i in range(len(fnames)):
@@ -106,6 +108,26 @@ def readr(icache, bcache, fnames, types, nsssort, ds):
         VV[d] = np.hstack(VV[d])
     return VV
 
+def reads(fnames, types, ds, lens):
+    bcache = {}
+    VV = []
+    for d in range(len(ds)):
+        for i in range(len(fnames)):
+            ckey = fnames[i] + ';' + str(ds[d])
+            if ckey not in bcache:
+                raw = read_raw({}, [fnames[i]], ds[d])[:int(lens)]
+                if types[d] == "R":
+                    raw = raw.astype(float)
+                elif types[d] == "D":
+                    raw = [parse_date(r) for r in raw]
+                    raw = [(date(r[0], r[1], r[2]) - date(1900, 1, 1)).days for r in raw]
+                else:
+                    pass
+                bcache[ckey] = raw
+            VV += [bcache[ckey]]
+    return VV
+
+
 def parse_raw(VV, keys, nsssort):
     nd = len(VV)
     nr = len(VV[0])
@@ -115,12 +137,12 @@ def parse_raw(VV, keys, nsssort):
         v[:, d] = np.minimum(nsssort[d] - 1, ids * nsssort[d] / len(keys[d])).astype(int)
     return v
 
-def readp(pred_low, pred_high, keys, trim, nsssort):
+def readp(pred_low, pred_high, keys, nsssort):
     rect = 1.0
     pred_low_s, pred_high_s = [], []
     for d in range(len(pred_low)):
-        pred_low_s += [bkt_raw(pred_low[d], keys[d], [], 'low', nsssort[d])]
-        pred_high_s += [bkt_raw(pred_high[d], keys[d], [], 'high', nsssort[d])]
+        pred_low_s += [bkt_raw(pred_low[d], keys[d], nsssort[d])]
+        pred_high_s += [bkt_raw(pred_high[d], keys[d], nsssort[d])]
         rect *= (pred_high_s[d] >= pred_low_s[d])
     return pred_low_s, pred_high_s, rect
 

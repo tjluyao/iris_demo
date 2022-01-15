@@ -272,9 +272,47 @@ class VecInt(_object):
 VecInt_swigregister = _cords.VecInt_swigregister
 VecInt_swigregister(VecInt)
 
+class choice(_object):
+    __swig_setmethods__ = {}
+    __setattr__ = lambda self, name, value: _swig_setattr(self, choice, name, value)
+    __swig_getmethods__ = {}
+    __getattr__ = lambda self, name: _swig_getattr(self, choice, name)
+    __repr__ = _swig_repr
+    __swig_setmethods__["id"] = _cords.choice_id_set
+    __swig_getmethods__["id"] = _cords.choice_id_get
+    if _newclass:
+        id = _swig_property(_cords.choice_id_get, _cords.choice_id_set)
+    __swig_setmethods__["ch"] = _cords.choice_ch_set
+    __swig_getmethods__["ch"] = _cords.choice_ch_get
+    if _newclass:
+        ch = _swig_property(_cords.choice_ch_get, _cords.choice_ch_set)
+    __swig_setmethods__["dvs"] = _cords.choice_dvs_set
+    __swig_getmethods__["dvs"] = _cords.choice_dvs_get
+    if _newclass:
+        dvs = _swig_property(_cords.choice_dvs_get, _cords.choice_dvs_set)
+    __swig_setmethods__["dv"] = _cords.choice_dv_set
+    __swig_getmethods__["dv"] = _cords.choice_dv_get
+    if _newclass:
+        dv = _swig_property(_cords.choice_dv_get, _cords.choice_dv_set)
+    __swig_setmethods__["corr"] = _cords.choice_corr_set
+    __swig_getmethods__["corr"] = _cords.choice_corr_get
+    if _newclass:
+        corr = _swig_property(_cords.choice_corr_get, _cords.choice_corr_set)
 
-def CORDS(fnm, scols):
-    return _cords.CORDS(fnm, scols)
+    def __init__(self, *args):
+        this = _cords.new_choice(*args)
+        try:
+            self.this.append(this)
+        except __builtin__.Exception:
+            self.this = this
+    __swig_destroy__ = _cords.delete_choice
+    __del__ = lambda self: None
+choice_swigregister = _cords.choice_swigregister
+choice_swigregister(choice)
+
+
+def CORDS(ifnm, ofnm, scols):
+    return _cords.CORDS(ifnm, ofnm, scols)
 CORDS = _cords.CORDS
 # This file is compatible with both classic and new-style classes.
 

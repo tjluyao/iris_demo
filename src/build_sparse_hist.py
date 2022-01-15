@@ -1,5 +1,6 @@
 import numpy as np
 from utils import *
+from partition import *
 
 def warm_up_hist(feat, dims):
     nd = len(feat.shape)
