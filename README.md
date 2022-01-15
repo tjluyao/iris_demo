@@ -1,5 +1,5 @@
 ## Pre-trained Iris models for structured datasets
-This is a code base for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris.pdf) accepted to PVLDB15.  We show a version in Python for ease of reading and algorithm development; however, this version is not as performant as our C++ version in terms of build time and query time shown. For more details, please refer to the paper. 
+This is a code base for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris.pdf) accepted to PVLDB15.  We show a version in Python for ease of reading and algorithm development.
 
 ## Tested environment: 
 - Ubuntu 18.04
@@ -100,13 +100,13 @@ Download the test dataset from the link below. Unzip to the root folder. Run the
 cd src/
 python run_summary_CE.py --input_fnm test/full-lineitem.txt 
 ```
-### Run the pre-training
+### Run the pre-training:
 To run the pre-training, besides all the testing datasets, download the pre-processed training datasets from the link below and unzip to the root folder. Run the following:
 ```
 cd src/
 python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 ```
-### Useful command line arguments
+### Useful command line arguments:
 `parameters.py` lists all the command line arguments used. We show a few useful ones here:
 - `input_fnm`: File specifying the dataset and test test queries. 
 - `model_fnm`: The model name used for summarization and CE, and the output model name in pre-training.
@@ -116,7 +116,7 @@ python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 - `max_atom_budget`: Maximum size for an individual summary. 
 - `nt`: The input quantization budget (resolution, \ell in the paper).
 - `ngpus`: The number of GPUs used in pre-training.
-## Download links from Google Drive
+## Download links from Google Drive:
 - Training datasets [link](https://drive.google.com/file/d/1-S8lkyhOcurUd1BuV6PJekPcSToSyFEo/view?usp=sharing)
 - Testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/11Xnrn9n4c4RSHuNjKk-ILw41nJ4TMsws/view?usp=sharing)
 - Testing dataset - DMV [link](https://drive.google.com/file/d/11U04XtCQZeK5ClLtnTRNsfaESn0fX5LQ/view?usp=sharing)
@@ -124,3 +124,5 @@ python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 - Testing dataset - IMDB-CastInfo [link](https://drive.google.com/file/d/11SBnarUKq_zxVVMpMEbpKXCpsZIjnl6b/view?usp=sharing)
 - Testing dataset - Poker [link](https://drive.google.com/file/d/11YcZIWRQjOIhOzyYC07PVWwDN_iag-G6/view?usp=sharing)
 - Alternative pre-trained models [link](https://drive.google.com/file/d/11ZUZJvwk4wQ-57RZaQ9U37xfd_kAc9qb/view?usp=sharing)
+## Remark
+Due to license issues, this release version does not contain the C++ code such as SIMD model inference and standalone dataset summarization and is not as performant in terms of building time and CE time shown in our the paper.
