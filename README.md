@@ -1,7 +1,7 @@
-# Pre-trained Iris models for structured datasets
+## Pre-trained Iris models for structured datasets
 This is a code base for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris.pdf) accepted to PVLDB15.  We show a version in Python for ease of reading and algorithm development; however, this version is not as performant as our C++ version in terms of build time and query time shown. For more details, please refer to the paper. 
 
-# Tested environment: 
+## Tested environment: 
 - Ubuntu 18.04
 - GCC 7.5.0
 - Python 3.7.6
@@ -9,16 +9,17 @@ This is a code base for the paper ['Pre-training Summarization Models of Structu
 - Tensorflow 1.13.1
 - Keras 2.3.1
 
-# Run demo for summarization and cardinality estimation: 
-We showcase a simple demo: (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering.
+## Run demo for summary and CE: 
+We showcase a simple demo: (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem, sampled) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering.
 
 To run the demo, 
 ```
+cd src
 make
 python run_summary_CE.py
 ```
 
-## Console outputs in the tested environment:
+### Console outputs in the tested environment:
 ```
 Loading ../dataset_public/test/demo_query.txt with 1 sets.
 Storage budget 50.625KB, max atom budget 2.0KB, sample size 128 rows
@@ -93,3 +94,25 @@ GMQ high:1.2341526845114035
         LM-             GMQ:2.21, 95th:8.08
         MSCN            GMQ:3.62, 95th:52.0
 ```
+### Run summary and CE on full test datasets in the paper: 
+The `input_fnm` argument specifies the dataset and test queries. 
+```
+cd src
+python run_summary_CE.py --input_fnm test/full-lineitem.txt 
+```
+### Run the pre-training
+To run the pre-training, besides all the testing datasets, download the pre-processed training datasets from the link below. `nt` argument (\ell in the paper) specifies the input resolution. `nr` argument (\eta) speficies the embedding size. `ngpus` decides how many GPUs to train, and `model_fnm` specifies the output model name.
+```
+cd src
+python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
+```
+### Other useful command line parameters
+
+## Download links from Google Drive
+- Training datasets [link](https://drive.google.com/file/d/1-S8lkyhOcurUd1BuV6PJekPcSToSyFEo/view?usp=sharing)
+- Testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/11Xnrn9n4c4RSHuNjKk-ILw41nJ4TMsws/view?usp=sharing)
+- Testing dataset - DMV [link](https://drive.google.com/file/d/11U04XtCQZeK5ClLtnTRNsfaESn0fX5LQ/view?usp=sharing)
+- Testing dataset - Airline-OnTime [link](https://drive.google.com/file/d/11OPmwHzVxAFLxL2dFnSSKE9iL_lkeXPH/view?usp=sharing)
+- Testing dataset - IMDB-CastInfo [link](https://drive.google.com/file/d/11SBnarUKq_zxVVMpMEbpKXCpsZIjnl6b/view?usp=sharing)
+- Testing dataset - Poker [link](https://drive.google.com/file/d/11YcZIWRQjOIhOzyYC07PVWwDN_iag-G6/view?usp=sharing)
+- Alternative pre-trained models [link](https://drive.google.com/file/d/11ZUZJvwk4wQ-57RZaQ9U37xfd_kAc9qb/view?usp=sharing)
