@@ -53,6 +53,7 @@ def build(dic, totald, options, budget, iris_model):
         V[neb] = parse_raw(Vo, KEYo[neb], nss)
         neb = int(neb/2)
         
+    print('--------------Part I-----------------')
     # step 2. run CORDs
     if options.run_cords:
         print("Running CORDs..")
@@ -60,7 +61,7 @@ def build(dic, totald, options, budget, iris_model):
         colsstr = ','.join([str(c) for c in cols])
         cords.CORDS(dic['Samples'][fid], options.cords_fnm, colsstr)
 
-    print("Building summaries..")
+    print("Building summaries using pre-trained " + options.model_fnm + "..")
     chs = []
     with open(options.cords_fnm, 'r') as fcords:
         cnt1 = int(fcords.readline())
@@ -183,10 +184,10 @@ def build(dic, totald, options, budget, iris_model):
                     feats[cid] = feat
             total_size += size * 4 / 1024
             if len(ch[0])>1 and options.isdemo:
-                print('\tSummary for columnset ' + (options.col_name[ch[0][0]]+','+options.col_name[ch[0][1]]).ljust(25) + '\tw/ #DV ' + str(ch[1]) + ',\tcorr. score ' + str(ch[2]) + '\tbuilt using ' + ch[3])
+                print('\tColumnset ' + (options.col_name[ch[0][0]]+','+options.col_name[ch[0][1]]).ljust(25) + '\tw/ #DV ' + str(ch[1]) + ',\tcorr. score ' + str(ch[2]) + '\tbuilt using ' + ch[3])
     print('Storage budget: ' + str(options.storage) + 'KB, total used size: ' + str(total_size) + 'KB')
     print('Base ' + str(cnt_base) + ', Sparse ' + str(cnt_sparse) + ', Hist '  + str(cnt_hist) + ', Iris ' + str(cnt_iris))
-    print('------------------------------')
+    print('--------------Part II-----------------')
 
     dic_feat = {}
     dic_feat['sample'] = sample
@@ -401,18 +402,8 @@ def infer(dic, weights, options):
             gmq_high += [np.log(q)]
         #print(pred, GT, q)
 
-    print(options.cords_fnm + ' Evaluated ' + str(len(gmq)) + ' queries')
-    print('GMQ:' + str(np.exp(np.average(gmq))))
-    print('95th:' + str(np.exp(np.percentile(gmq, 95))))
-    if len(gmq_low)>0:
-        print('GMQ low:' + str(np.exp(np.average(gmq_low))))
-        print('95th low:' + str(np.exp(np.percentile(gmq_low, 95))))
-    if len(gmq_med)>0:
-        print('GMQ med:' + str(np.exp(np.average(gmq_med))))
-        print('95th med:' + str(np.exp(np.percentile(gmq_med, 95))))
-    if len(gmq_high)>0:
-        print('GMQ high:' + str(np.exp(np.average(gmq_high))))
-        print('95th high:' + str(np.exp(np.percentile(gmq_high, 95))))
+    print(options.input_fnm + ' Evaluated ' + str(len(gmq)) + ' queries')
+    print('\tIris\t\tGMQ:' + str("{:.2f}".format(np.exp(np.average(gmq)))) + ', 95th:' + str("{:.2f}".format(np.exp(np.percentile(gmq, 95)))))
     if options.isdemo:
         print(options.demoresult)
 
@@ -430,8 +421,9 @@ if __name__ == '__main__':
     options.max_atom_budget *= options.storage
     if options.storage < 0.5:
         options.sample_size *= 0.5
+    print('Storage budget ' + str(options.storage * 4 * len(dic['Types'][0])) + 'KB, max atom budget ' + str(4*options.max_atom_budget/1024) + 'KB, sample size ' + str(options.sample_size) + ' rows')
     options.storage = len(dic['Types'][0]) * (options.storage * 4 - options.neb/1024 - options.sample_size/256)
-    print('Storage budget ' + str(options.storage) + 'KB, max atom budget ' + str(4*options.max_atom_budget/1024) + 'KB, sample size ' + str(options.sample_size) + ' rows')
+    print('Storage budget exlucding overhead ' + str(options.storage) + 'KB') 
 
     print("Extracting embedding weights from pre-trained model (can be cached offline)..")
     weights = {}
