@@ -86,10 +86,10 @@ Computing cardinality estimates..
 test/demo_query.txt Evaluated 1000 queries
         Iris            GMQ:1.68, 95th:4.72
         For comparison, the following baseline results are pre-computed.
-        Sampling        GMQ:3.02, 95th:109.98
-        xAVI            GMQ:2.94, 95th:21.00
-        LM-             GMQ:2.21, 95th:8.08
-        MSCN            GMQ:3.62, 95th:52.0
+        Sampling        GMQ:2.33, 95th:19.54
+        xAVI            GMQ:2.13, 95th:10.44
+        LM-             GMQ:2.41, 95th:9.01
+        MSCN            GMQ:36.13, 95th:3412
 ```
 ### Run summary and CE on full test datasets in the paper: 
 Download the test dataset from the link below. Unzip to the root folder. Run the following:

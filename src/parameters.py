@@ -51,11 +51,11 @@ def parse_arg(istest=2):
     options.ncd = options.nt - (int)(options.nt * (1 - options.nm))
     options.isdemo = 0
     if istest == 2 and options.storage == 1 and ('demo_query.txt' in options.input_fnm): # hard coded demo
-        print('-------------------Demo summary and CE-----------------------')
+        print('--------------Run Iris demo----------------')
         options.input_rate = 0.05
         options.isdemo = 1
         options.col_name = ['ORDERKEY', 'PARTKEY', 'SUPPKEY', 'LINENUMBER', 'QUANTITY', 'EXTENDEDPRICE', 'DISCOUNT', 'TAX',
                     'RETURNFLAG', 'LINESTATUS', 'SHIPDATE', 'COMMITDATE', 'RECEIPTDATE', 'SHIPINSTRUCT', 'SHIPMODE']
         options.model_fnm = '../results/Irisv0.1-nml2Mnt2048nr128nm0.5.model'
-        options.demoresult = '\tFor comparison, the following baseline results are pre-computed.\n\tSampling\tGMQ:3.02, 95th:109.98\n\txAVI\t\tGMQ:2.94, 95th:21.00\n\tLM-\t\tGMQ:2.21, 95th:8.08\n\tMSCN\t\tGMQ:3.62, 95th:52.0'
+        options.demoresult = '\tFor comparison, the following baseline results are pre-computed.\n\tSampling\tGMQ:2.33, 95th:19.54\n\txAVI\t\tGMQ:2.13, 95th:10.44\n\tLM-\t\tGMQ:2.41, 95th:9.01\n\tMSCN\t\tGMQ:36.13, 95th:3412'
     return options
