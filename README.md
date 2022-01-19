@@ -2,12 +2,8 @@
 This is a code base for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris.pdf) accepted to PVLDB15.  We show a version in Python for ease of reading and algorithm development.
 
 ## Tested environment: 
-- Ubuntu 18.04
-- GCC 7.5.0
-- Python 3.7.6
-- Swig 3.0.12
-- Tensorflow 1.13.1
-- Keras 2.3.1
+- A single Azure NC24s_v3 node with 4 V100 GPUs, a single Azure NC24 node with 4 K80 GPUs
+- Softwares: Ubuntu 18.04, GCC 7.5.0, Python 3.7.6, Swig 3.0.12, Tensorflow 1.13.1, Keras 2.3.1
 
 ## Run demo for summary and CE: 
 We showcase a simple demo: (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem, sampled) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering.
