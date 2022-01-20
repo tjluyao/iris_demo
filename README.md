@@ -3,12 +3,12 @@ This is a code base for the paper ['Pre-training Summarization Models of Structu
 
 ## Tested environment: 
 - A single Azure NC24s_v3 node with 4 V100 GPUs, a single Azure NC24 node with 4 K80 GPUs
-- Softwares: Ubuntu 18.04, GCC 7.5.0, Python 3.7.6, Swig 3.0.12, Tensorflow 1.13.1, Keras 2.3.1
+- Softwares: Ubuntu 18.04, GCC 7.5.0, Python 3.7.6, Swig 3.0.12, Tensorflow 1.13.1, Keras 2.2.4, h5py 2.10.0
 
 ## Run demo for summary and CE: 
 We showcase a simple demo: (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem, sampled) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering.
 
-To run the demo, 
+To run the demo, change the path in `Makefile` and
 ```
 cd src/
 make
@@ -88,7 +88,7 @@ test/demo_query.txt Evaluated 1000 queries
         MSCN            GMQ:36.13, 95th:3412
 ```
 ### Run summary and CE on full test datasets in the paper: 
-Download the test dataset from the link below. Unzip to the root folder. Run the following:
+Download the test dataset from the [link](#download-links) below. Unzip to the root folder. Run the following:
 ```
 cd src/
 python run_summary_CE.py --input_fnm test/full-lineitem.txt 
@@ -109,7 +109,7 @@ python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 - `max_atom_budget`: Maximum size for an individual summary. 
 - `nt`: The input quantization budget (resolution, \ell in the paper).
 - `ngpus`: The number of GPUs used in pre-training.
-## Download links:
+## Download links
 - Pre-processed training datasets [link](https://drive.google.com/file/d/1-S8lkyhOcurUd1BuV6PJekPcSToSyFEo/view?usp=sharing)
 - Pre-processed testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/11Xnrn9n4c4RSHuNjKk-ILw41nJ4TMsws/view?usp=sharing)
 - Pre-processed testing dataset - DMV [link](https://drive.google.com/file/d/11U04XtCQZeK5ClLtnTRNsfaESn0fX5LQ/view?usp=sharing)
