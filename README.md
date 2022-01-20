@@ -103,12 +103,12 @@ python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 `src/parameters.py` lists all the command line arguments used. We show a few useful ones here:
 - `input_fnm`: File specifying the dataset and test test queries. 
 - `model_fnm`: The model name used for summarization and CE, and the output model name in pre-training.
-- `nusecpp`: If using cpp modules to speed up some parts of the Python code.
-- `nr`: The output embedding size for each dataset (\eta in the paper). 
-- `storage`: The storage budget for bag of summaries. It is a multiplier of the storage budget used in SQL Server (4KB/column). 
-- `max_atom_budget`: Maximum size for an individual summary. 
-- `nt`: The input quantization budget (resolution, \ell in the paper).
-- `ngpus`: The number of GPUs used in pre-training.
+- `nusecpp`: If using cpp modules to speed up some parts of the Python code (default: 0).
+- `nr`: The output embedding size for each dataset (\eta in the paper, default: 128). 
+- `storage`: Total storage budget. It is a multiplier of the storage budget used in SQL Server (4KB/column, default: 1). 
+- `nl` Pre-training dataset size multiplier. Use a smaller value if there is not enough memory (default: 30).
+- `nt`: The input quantization budget (resolution, \ell in the paper, default: 2048).
+- `ngpus`: The number of GPUs used in pre-training (default: 1).
 ## Download links
 - Pre-processed training datasets [link](https://drive.google.com/file/d/1-S8lkyhOcurUd1BuV6PJekPcSToSyFEo/view?usp=sharing)
 - Pre-processed testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/11Xnrn9n4c4RSHuNjKk-ILw41nJ4TMsws/view?usp=sharing)
