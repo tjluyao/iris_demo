@@ -1,21 +1,21 @@
 ## Pre-trained Iris models for structured datasets
 This is a code base for the paper ['Pre-training Summarization Models of Structured Datasets for Cardinality Estimation'](http://yao.lu/iris.pdf) accepted to PVLDB15.  We show a version in Python for ease of reading and algorithm development.
 
-## Tested environment: 
+## Tested environment
 - A single Azure NC24s_v3 node with 4 V100 GPUs, a single Azure NC24 node with 4 K80 GPUs
 - Softwares: Ubuntu 18.04, GCC 7.5.0, Python 3.7.6, Swig 3.0.12, Tensorflow 1.13.1, Keras 2.2.4, h5py 2.10.0
 
-## Run demo for summary and CE: 
+## Run demo for summary and CE
 We showcase a simple demo: (1) using a pre-trained model together with other techniques discussed in the paper to summarize a new dataset (TPCH-LineItem, sampled) with a storage budget (60KB, or 4KB per column) that matches the statistics in a production database, and (2) estimating cardinality using the summaries. A single CPU thread is used for both summarization and query answering.
 
-To run the demo, change the path in `Makefile` and
+To run the demo, change the path in `Makefile` correspondingly, and
 ```
 cd src/
 make
 python run_summary_CE.py
 ```
 
-### Console outputs in the tested environment:
+### Console outputs in the tested environment
 ```
 Using TensorFlow backend.
 --------------Run Iris demo----------------
@@ -87,19 +87,19 @@ test/demo_query.txt Evaluated 1000 queries
         LM-             GMQ:2.41, 95th:9.01
         MSCN            GMQ:36.13, 95th:3412
 ```
-### Run summary and CE on full test datasets in the paper: 
-Download the test dataset from the [link](#download-links) below. Unzip to the root folder. Run the following:
+### Run summary and CE on full test datasets in the paper
+Download the TPCH-Lineitem or other test datasets from the provided [links](#download-links) below. Unzip to the root folder. Run the following:
 ```
 cd src/
 python run_summary_CE.py --input_fnm test/full-lineitem.txt 
 ```
-### Run the pre-training:
+### Run the pre-training
 To run the pre-training, besides all the testing datasets, download the pre-processed training datasets from the link below and unzip to the root folder. Run the following:
 ```
 cd src/
 python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 ```
-### Useful command line arguments:
+### Useful command line arguments
 `src/parameters.py` lists all the command line arguments used. We show a few useful ones here:
 - `input_fnm`: File specifying the dataset and test test queries. 
 - `model_fnm`: The model name used for summarization and CE, and the output model name in pre-training.
