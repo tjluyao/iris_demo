@@ -39,7 +39,7 @@ if options.ngpus>1:
 print('Using ' + str(options.ngpus) + ' GPUs')
 model.compile(optimizer=ada, loss='mae')
 
-print(model.summary() if options.ngpus == 1 else model.layers[-2].summary())
+#print(model.summary() if options.ngpus == 1 else model.layers[-2].summary())
 
 icache, bcache, ccache = {}, {}, {}
 istest = 0
@@ -48,10 +48,9 @@ R, B, PL, PH = prep_train(nl, nqs, options.nt, options.nb, options.neb, options.
 g = generate(R, B, options.nm, options.nt, options.nbat, options.neb, options.normlen, nl, options.mind, options.maxd, istest, PL, PH)
 
 istest = 1
-nl = int(2 * nqs * len(dic_val['Table']))
-nlen = 5000000
+nl = int(nqs * len(dic_val['Table']))
 options.nbat = nqs
-Rv, Bv, PLv, PHv = prep_train(nl, nqs, options.nt, options.nb, options.neb, nlen, dic_val, istest, options.nusecpp, icache, bcache, ccache)
+Rv, Bv, PLv, PHv = prep_train(nl, nqs, options.nt, options.nb, options.neb, 5e6, dic_val, istest, options.nusecpp, icache, bcache, ccache)
 gv = generate(Rv, Bv, options.nm, options.nt, options.nbat, options.neb, options.normlen, nl, options.mind, options.maxd, istest, PLv, PHv)
 
 nworkers = 4 * options.ngpus

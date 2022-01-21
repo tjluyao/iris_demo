@@ -195,7 +195,6 @@ def build(dic, totald, options, budget, iris_model):
     dic_feat['TYPEs'] = TYPEs
     dic_feat['ch'] = chs
     pickle.dump(dic_feat, open('tmp/feature-' + os.path.splitext(os.path.basename(options.input_fnm))[0] + '-' + str(options.storage) + '.pkl', 'wb'))
-
     dic_bucket = {}
     dic_bucket['KEYo'] = KEYo
     pickle.dump(dic_bucket, open('tmp/bucket-' + os.path.splitext(os.path.basename(options.input_fnm))[0] + '-' + str(options.storage) + '.pkl' if len(options.nusebucket)==0 else options.nusebucket, 'wb'))
@@ -412,8 +411,8 @@ if __name__ == '__main__':
     if not os.path.exists('tmp'):
         os.mkdir('tmp')
 
-    dic = readd(options.data_dir + '/' + options.input_fnm, sample_rate=options.input_rate, nqs=1000)
-    options.nlen = options.input_rate * dic['Rows'][0]
+    dic = readd(options.data_dir + '/' + options.input_fnm, sample_rate=options.input_rate if options.isdemo else 1, nqs=1000)
+    options.nlen = max(10000, int(options.input_rate * dic['Rows'][0]/10000)*10000)
 
     # Turn storage from how many X of that is used by a production system to actual KBs
     # overhead: options.neb(xi) B/col bucket boundaries, options.sample_size*4/1024 KB/col small sample
