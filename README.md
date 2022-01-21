@@ -94,11 +94,12 @@ cd src/
 python run_summary_CE.py --input_fnm test/full-lineitem.txt 
 ```
 ### Run the pre-training
-To run the pre-training, besides all the testing datasets, download the pre-processed training datasets from the link below and unzip to the root folder. Run the following:
+To run the pre-training, besides all the testing datasets, download the pre-processed training datasets from the link below and unzip to the root folder. Run the following. *Warning*: Pre-training using the full corpus requires a large memory (220GB).
 ```
 cd src/
 python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 ```
+
 ### Useful command line arguments
 `src/parameters.py` lists all the command line arguments used. We show a few useful ones here:
 - `input_fnm`: File specifying the dataset and test test queries. 
