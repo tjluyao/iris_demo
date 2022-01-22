@@ -106,7 +106,7 @@ python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 - `model_fnm`: The model name used for summarization and CE, and the output model name in pre-training.
 - `nusecpp`: If using cpp modules to speed up some parts of the Python code (default: 0).
 - `nr`: The output embedding size for each dataset (\eta in the paper, default: 128). 
-- `storage`: Total storage budget. It is a multiplier of the storage budget used in SQL Server (4KB/column, default: 1). 
+- `storage`: Total storage budget, a multiplier of the storage budget used in SQL Server (4KB/column, default: 1). 
 - `nl` Pre-training dataset size multiplier. Use a smaller value if there is not enough memory (default: 30).
 - `nt`: The input quantization budget (resolution, \ell in the paper, default: 2048).
 - `ngpus`: The number of GPUs used in pre-training (default: 1).
