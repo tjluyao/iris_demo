@@ -48,7 +48,7 @@ R, B, PL, PH = prep_train(nl, nqs, options.nt, options.nb, options.neb, options.
 g = generate(R, B, options.nm, options.nt, options.nbat, options.neb, options.normlen, nl, options.mind, options.maxd, istest, PL, PH)
 
 istest = 1
-nl = int(nqs * len(dic_val['Table']))
+nl = int(3 * nqs * len(dic_val['Table']))
 options.nbat = nqs
 Rv, Bv, PLv, PHv = prep_train(nl, nqs, options.nt, options.nb, options.neb, 5e6, dic_val, istest, options.nusecpp, icache, bcache, ccache)
 gv = generate(Rv, Bv, options.nm, options.nt, options.nbat, options.neb, options.normlen, nl, options.mind, options.maxd, istest, PLv, PHv)
