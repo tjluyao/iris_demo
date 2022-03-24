@@ -112,10 +112,10 @@ python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 - `ngpus`: The number of GPUs used in pre-training (default: 1).
 ## Download links
 - Pre-processed training datasets [link](https://drive.google.com/file/d/1-S8lkyhOcurUd1BuV6PJekPcSToSyFEo/view?usp=sharing)
-- Pre-processed testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/11Xnrn9n4c4RSHuNjKk-ILw41nJ4TMsws/view?usp=sharing)
-- Pre-processed testing dataset - DMV [link](https://drive.google.com/file/d/11U04XtCQZeK5ClLtnTRNsfaESn0fX5LQ/view?usp=sharing)
+- Pre-processed testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/1wHhBCMtkhDgxkKAqrLbfT-NQ2d86dRTB/view?usp=sharing)
+- Pre-processed testing dataset - DMV [link](https://drive.google.com/file/d/1wC9iVe_q9ZycsFPm1wRtyDKgo0kkAnnJ/view?usp=sharing)
 - Pre-processed testing dataset - Airline-OnTime [link](https://drive.google.com/file/d/11OPmwHzVxAFLxL2dFnSSKE9iL_lkeXPH/view?usp=sharing)
-- Pre-processed testing dataset - IMDB-CastInfo [link](https://drive.google.com/file/d/11SBnarUKq_zxVVMpMEbpKXCpsZIjnl6b/view?usp=sharing)
+- Pre-processed testing dataset - IMDB-CastInfo [link](https://drive.google.com/file/d/1w2qBHtFUJkYM4xkJ4kREFOKrKWI5U-BO/view?usp=sharing)
 - Pre-processed testing dataset - Poker [link](https://drive.google.com/file/d/11YcZIWRQjOIhOzyYC07PVWwDN_iag-G6/view?usp=sharing)
 - Alternative pre-trained models [link](https://drive.google.com/file/d/11ZUZJvwk4wQ-57RZaQ9U37xfd_kAc9qb/view?usp=sharing)
 ## Remark
