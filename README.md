@@ -111,12 +111,12 @@ python run_pretrain.py --nt 2048 --nr 128 --ngpus 4 --model_fnm model_name
 - `nt`: The input quantization budget (resolution, \ell in the paper, default: 2048).
 - `ngpus`: The number of GPUs used in pre-training (default: 1).
 ## Download links
-- Pre-processed training datasets [link](https://drive.google.com/file/d/1-S8lkyhOcurUd1BuV6PJekPcSToSyFEo/view?usp=sharing)
-- Pre-processed testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/1wHhBCMtkhDgxkKAqrLbfT-NQ2d86dRTB/view?usp=sharing)
-- Pre-processed testing dataset - DMV [link](https://drive.google.com/file/d/1wC9iVe_q9ZycsFPm1wRtyDKgo0kkAnnJ/view?usp=sharing)
-- Pre-processed testing dataset - Airline-OnTime [link](https://drive.google.com/file/d/11OPmwHzVxAFLxL2dFnSSKE9iL_lkeXPH/view?usp=sharing)
-- Pre-processed testing dataset - IMDB-CastInfo [link](https://drive.google.com/file/d/1w2qBHtFUJkYM4xkJ4kREFOKrKWI5U-BO/view?usp=sharing)
-- Pre-processed testing dataset - Poker [link](https://drive.google.com/file/d/11YcZIWRQjOIhOzyYC07PVWwDN_iag-G6/view?usp=sharing)
-- Alternative pre-trained models [link](https://drive.google.com/file/d/11ZUZJvwk4wQ-57RZaQ9U37xfd_kAc9qb/view?usp=sharing)
+- Pre-processed training datasets [link](https://drive.google.com/file/d/1gTrg0nyW6IWgsQiemo8Y661CdhJQh5qu/view?usp=sharing)
+- Pre-processed testing dataset - TPCH-Lineitem [link](https://drive.google.com/file/d/1gaDGC1R7qDI3IsA98E9c7ApBGroHqZRW/view?usp=sharing)
+- Pre-processed testing dataset - DMV [link](https://drive.google.com/file/d/1gZvb05XNI8tRePuBJHmoXlJ17bCYuhos/view?usp=sharing)
+- Pre-processed testing dataset - Airline-OnTime [link](https://drive.google.com/file/d/1gU9hOcdOCNIuVi0iijfiBDRfrAN_eeY5/view?usp=sharing)
+- Pre-processed testing dataset - IMDB-CastInfo [link](https://drive.google.com/file/d/1gXWE44wB1q3EwWFVs8Pg-ni2VCq_DlK6/view?usp=sharing)
+- Pre-processed testing dataset - Poker [link](https://drive.google.com/file/d/1gZro6zs4NCzdYuwCJXSH2hS6n9KGksUv/view?usp=sharing)
+- Alternative pre-trained models [link](https://drive.google.com/file/d/1gYulfoQrMMXBt5OAX3hPev8hQWDqteZe/view?usp=sharing)
 ## Remark
 Due to license issues, this release version does not contain the C++ code such as SIMD model inference and standalone dataset summarization and is not as performant in terms of building time and CE time shown in our the paper.
